@@ -17,5 +17,6 @@
     "jsonwebtoken": "^5.4.0",
     "mongoose": "^4.1.12",
     "morgan": "^1.6.1"
-  }
+  },
+  "devDependencies": {}
 }

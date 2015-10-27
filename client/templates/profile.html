@@ -1,32 +1,40 @@
-<section class="jumbotron" id="profile">
-	<h1>imagXchange Profile</h1>
-	<div><a>Hi {{mainCtrl.user.username}}</a></div>
+<section id="profile">
+	<body ng-app="imagXchange" ng-controller="PhotoController as photoCtrl">
+		<h1>imagXchange Profile</h1>
+		<div><a>Hi {{mainCtrl.user.username}}</a></div>
 
-	<h2>Upload Your Photo<h2>
-	<form ng-submit="photos.addPhoto()" id="newPhoto">
-	  <div>
-	    <label for="newPhoto-Title">Title:</label>
-	    <input type="text" id="newPhoto-name" ng-model="photos.newPhoto.name" placeholder="Title">
-	  </div>
-	  <div>
-	    <label for="newPhoto-Caption">Caption:</label>
-	    <input type="text" id="newPhoto-caption" ng-model="photos.newPhoto.caption" placeholder="Caption">
-	  </div>
-	  <div>
-	  	<label for="newPhoto-Subject">Subject:</label>
-	    <input type="text" id="newPhoto-subject" ng-model="photos.newPhoto.subject" placeholder="Subject">
-	  </div>
-	  <div>
-	  	<label for="newPhoto-Location">Location:</label>
-	    <input type="text" id="newPhoto-location" ng-model="photos.newPhoto.location" placeholder="Location">
-	  </div>
-	  <div>
-	  	<label for="newPhoto-DateTaken">DateTaken:</label>
-	    <input type="text" id="newPhoto-datetaken" ng-model="photos.newPhoto.datetaken" placeholder="DateTaken">
-	  </div>
-	  <div>
-	    <input type="submit" value="Add Photo">
-	  </div>
-	</form>
+		<h2>Upload Your Photo<h2>
+			<form id="profileForm" ng-submit="photos.addPhoto()" id="newPhoto">
+				  <div>
+				    <label for="newPhoto-Title">Title:</label>
+				    <input type="text" id="newPhoto-name" ng-model="photos.newPhoto.name" placeholder="Title">
+				  </div>
+				  <div>
+				    <label for="newPhoto-Caption">Caption:</label>
+				    <input type="text" id="newPhoto-caption" ng-model="photos.newPhoto.caption" placeholder="Caption">
+				  </div>
+				  <div>
+				  	<label for="newPhoto-Subject">Subject:</label>
+				    <input type="text" id="newPhoto-subject" ng-model="photos.newPhoto.subject" placeholder="Subject">
+				  </div>
+				  <div>
+				  	<label for="newPhoto-Location">Location:</label>
+				    <input type="text" id="newPhoto-location" ng-model="photos.newPhoto.location" placeholder="Location">
+				  </div>
+				  <div>
+				  	<label for="newPhoto-DateTaken">DateTaken:</label>
+				    <input type="text" id="newPhoto-datetaken" ng-model="photos.newPhoto.datetaken" placeholder="DateTaken">
+				  </div>
+				  <br>Photo:
+				  	<input type="file" ngf-select ng-model="picfile" name="file" accept="image/*" ngf-max-size="20MB" required>
+				  	<i ng-show="uploadForm.file.$error.required">*required</i><br>
+				  	<i ng-show="uploadForm.file.$error.maxSize">File too large {{picFile.size / 1000000|number:1}}MB: max 25M</i>
+
+				  <br>
+				  <div>
+				    <button type="submit" value="Add Photo" ng-click="photoCtrl.uploadPic()">Submit</button>
+
+				  </div>
+			</form>
 
 </section>

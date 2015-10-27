@@ -1,6 +1,6 @@
 var express 		= require( 'express' ),
 	photosController = require( '../controllers/photosController'),
-	photoapiRouter	= express.Router();
+	photoapiRouter	= express.Router()
 
 function authenticatedUser( req, res, next ) {
 	console.log( req.user )
@@ -16,9 +16,12 @@ function isPublisher( req, res, next ) {
 	}
 }
 
+
 photoapiRouter.route( '/' ) //displays all photos
+	// console.log("hitting api router")
 	.get( photosController.index )
 	.post( photosController.create )
+
 
 photoapiRouter.route( '/:photo_id' )
 	.get( photosController.show ) //gets individual photo

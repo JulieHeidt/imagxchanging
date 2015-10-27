@@ -1,12 +1,12 @@
 angular
 	.module('imagXchange')
-	.controller('PhotosController', PhotosController);
+	.controller('PhotoController', PhotoController);
 //inject the $http
-PhotosController.$inject = [ '$state', '$http' ]
-//PhotosController.$inject = [ 'photosFactory' ]
+PhotoController.$inject = [ '$state', '$http' ]
+//PhotoController.$inject = [ 'photosFactory' ]
 
 //refer to the photo module
-function PhotosController( $state, $http ){
+function PhotoController( $state, $http ){
 	
 	var vm = this
 
@@ -19,8 +19,15 @@ function PhotosController( $state, $http ){
 	
 }
 
+PhotoController.prototype.uploadPic = function( ) {
+	var formData = new FormData( document.getElementById( "profileForm" ) )
+	this.$http
+		.post( "http://localhost:8080/api/photos/", { data: formData} )
+	console.log("bananas")
+}
+
 //gets all photos 
-PhotosController.prototype.getPhotos = function() {
+PhotoController.prototype.getPhotos = function() {
 
 
 	var vm = this
@@ -34,7 +41,7 @@ PhotosController.prototype.getPhotos = function() {
 	})
 }
 
-PhotosController.prototype.viewPhotos = function(id) {
+PhotoController.prototype.viewPhotos = function(id) {
 	console.log("Working")
 
 	var vm = this
@@ -56,7 +63,7 @@ PhotosController.prototype.viewPhotos = function(id) {
 
 }
 
-PhotosController.prototype.buyPhoto = function(id) {
+PhotoController.prototype.buyPhoto = function(id) {
 	console.log("buy button is hitting")
 
 	var vm = this

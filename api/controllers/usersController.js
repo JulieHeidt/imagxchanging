@@ -14,7 +14,7 @@ function create( req, res ){
 	
 	var user = new User()
 
-	user.username	= req.body.username
+	// user.username	= req.body.username
 	user.email 		= req.body.email
 	user.password 	= req.body.password
 

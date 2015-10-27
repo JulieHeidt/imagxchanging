@@ -1,4 +1,13 @@
-var Photo = require( '../models/Photo');
+var Photo 	= require( '../models/Photo')
+var express 	= require('express')
+var busboy 		= require('busboy')
+var knox 		= require('knox')
+var url 		= require('url')
+var http 		= require('http')
+var fs			= require('fs')
+var path 		= require('path')
+
+
 
 function index ( req, res ) {
 	//gets all photo
@@ -9,23 +18,93 @@ function index ( req, res ) {
 }
 
 function create( req, res ) {
+		console.log(req)
+		req.files = {}
+		//A streaming parser for HTML form data
+		
+
+    	// Create an Busyboy instance passing the HTTP Request headers.
+	 	req.busboy.on('field', function( fieldname, val ) {
+	    	if (!filename) {
+	      	// If filename is not truthy it means there's no file
+	      	console.log("fieldname, val")
+	      	// return
+	    	}
+
+	  //   	console.log("file!!!")
+	  //   	console.log('File [' + fieldname + ']: filename: ' + filename + ', encoding: ' + encoding + ', mimetype: ' + mimetype)
+
+
+	  //   	var extendedName = path.basename( filename ).replace( /\.(?=\w{3,}$)/, moment().format( "[_]YYYY_MM_DD_HH_mm_ss[.]" ) ).replace( /\ /, "")
+
+			// // create createWriteStream //load the stream		
+			// var writeStream = fs.createWriteStream( extendedName )
+
+			// //pipe method to pipe to the PUT request
+			// file.pipe( writeStream )
+
+			// writestream.on( "finish", function () {
+			// // `filePathToBeWrittenTo`
+			// 	console.log( file.path )
+			// 	S3.putFile ( file.path, '/raw/' + path.basename( url ), function ( err, response ) {
+			// 		//
+			// 		if ( err ) {
+			// 			console.log( "Unable to create file path" + err )
+			// 		}
+			// 		// On return of S3, get signed url
+			// 		// This URL will expire in one minute (60 seconds)
+			// 		var url = S3.getSignedUrl( 'getObject', s3params, function ( err, url ) {
+			// 				if ( url ) 
+			// 				console.log( "The URL is ", url )
+			// 				return ( url )
+			// 		})
+			// 		// -> Store SignedURL && S3 Bucket Path in database
+
+
+			// 		// Set Time To Live (TTL) IN database with date-time stamp
+			// 		//   so you know when the SignedURL needs to be grabbed again
+
+			// 		//   on request and replacesd in the database
+			// 	})
+			// })
+
+		})
+		console.log( data )
+
+
+// 	//makes a photo 
+// 	var photo = new Photo()
+
+// 	photo.title			= req.body.title
+// 	photo.caption		= req.body.caption
+// 	photo.subject		= req.body.subject
+// 	//photo.user			= req.body.global.username
+// 	photo.location		= req.body.location
+// 	photo.datetaken		= req.body.datetaken
+
+// 	photo.save( function( err ) {
+// 		if( err ) res.send 
+// 			res.json({success: true, message: "photo created"})
+// 	})
+
+// }
 	//makes a photo 
-	var photo = new Photo()
+	// var photo = new Photo()
 
-	photo.title			= req.body.title
-	photo.caption		= req.body.caption
-	photo.subject		= req.body.subject
-	//photo.user			= req.body.global.username
-	photo.location		= req.body.location
-	photo.datetaken		= req.body.datetaken
-	photo.startingprice	= req.body.startingprice
-	photo.currentprice	= req.body.currentprice
+	// photo.title			= req.body.title
+	// photo.caption		= req.body.caption
+	// photo.subject		= req.body.subject
+	// //photo.user			= req.body.global.username
+	// photo.location		= req.body.location
+	// photo.datetaken		= req.body.datetaken
+	// photo.startingprice	= req.body.startingprice
+	// photo.currentprice	= req.body.currentprice
 
 
-	photo.save( function( err ) {
-		if( err ) res.send 
-			res.json({success: true, message: "photo created"})
-	})
+	// photo.save( function( err ) {
+	// 	if( err ) res.send 
+	// 		res.json({success: true, message: "photo created"})
+	// })
 }
 
 function show( req, res ) {
