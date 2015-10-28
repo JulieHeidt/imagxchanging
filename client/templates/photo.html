@@ -15,7 +15,7 @@
 		<li>Current price: {{photoCtrl.photo.currentprice}}</li>
 		<li>Photo id: {{photoCtrl.photo._id}}</li>
 
-		<button id='buy' ng-click="photoCtrl.buyPhoto(photo.startprice)">BUY</button>
+		<button id='buy' ng-click="photoCtrl.buyPhoto(photoCtrl.photo._id)">BUY</button>
 		<!-- <button class='delete' ng-click="photos.deletePhoto(photo)">Delete</button> -->
 
 	</ul>

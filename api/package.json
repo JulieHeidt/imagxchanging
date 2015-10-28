@@ -1,4 +1,4 @@
-{
+ {
   "name": "imagxchange",
   "version": "1.0.0",
   "description": "A online marketplace for images.",
@@ -20,7 +20,13 @@
     "knox": "^0.9.2",
     "moment": "^2.10.6",
     "mongoose": "^4.1.12",
+<<<<<<< HEAD
     "morgan": "^1.6.1"
   },
   "devDependencies": {}
+=======
+    "morgan": "^1.6.1",
+    "twit": "^2.1.1"
+  }
+>>>>>>> upstream/master
 }

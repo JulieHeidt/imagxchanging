@@ -8,16 +8,14 @@ var Photo 		= require( '../models/Photo')
 var moment 		= require( "moment" )
 var join 		= require( "path" ).join
 var dotenv		= require( "dotenv")
-dotenv.config( { path: join( __dirname, "../../.env" )  } )
-dotenv.load()
+	dotenv.config( { path: join( __dirname, "../../.env" )  } )
+	dotenv.load()
 var knox 		= require('knox'),
 	S3Client	= knox.createClient({
 		bucket: "imagxchange",
 		key: process.env.AWS_ACCESS_KEY,
 		secret: process.env.AWS_ACCESS_SECRET 
 	})
-
-
 
 
 function index ( req, res ) {
@@ -81,12 +79,9 @@ function create( req, res ) {
 
 		return req.pipe(busboy)
 		
-	}
-		
-		// console.log( data )
 
-	//makes a photo 
-	// var photo = new Photo()
+	var photo = new Photo()
+	var newPrice;
 
 	// photo.title			= req.body.title
 	// photo.caption		= req.body.caption
@@ -103,6 +98,12 @@ function create( req, res ) {
 	// 		res.json({success: true, message: "photo created"})
 	// })
 
+	photo.save( function( err, photo ) {
+		if( err ) res.json({succes:false, message:"Uh oH!"})
+			// photo.counterStart()
+			res.json({success: true, message: "photo created"})
+	})
+}
 
 function show( req, res ) {
 	//gets a single image
@@ -114,16 +115,19 @@ function show( req, res ) {
 
 function update( req, res ) {
 	//update a photo
-	Photo.findById( req.params.photo_id, function( err, photo) {
+	Photo.findById( req.params.photo_id, function( err, photo ) {
 		if( err ) res.send( err )
 
-		if( req.body.title ) photo.title 	= req.body.title
-		if( req.body.price ) photo.price 	= req.body.price
-		if( req.body.date ) photo.date		= req.body.date
+		if( req.body.title ) photo.title 					= req.body.title
+		if( req.body.currentprice ) photo.currentprice 		= req.body.currentprice
+		if( req.body.startingprice ) photo.startingprice 	= req.body.startingprice
+		if( req.body.date ) photo.date						= req.body.date
 
-		photo.save( function( err ) {
+		photo.save( function( err, photo ) {
 			if( err ) res.send( err )
+			photo.counterStart()
 			res.json( {success: true, message: "photo has been udpated"})
+		console.log("photo price saved")
 		})
 	})
 }
@@ -137,6 +141,8 @@ function destroy ( req, res ) {
 		res.json( {success: true, message: "Your photo has been destroyed!"})
 	})
 }
+
+
 
 module.exports = {
 	index	: index,

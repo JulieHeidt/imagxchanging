@@ -33,4 +33,11 @@ app.get('*', function( req, res ){
 app.listen(port)
 console.log("listening on port" + port)
 
+
+//socket io app.get function
+app.get('/', function(req, res){
+	res.sendfile('index.html');
+});
+
+
 module.exports = app;
