@@ -1,11 +1,22 @@
-var Photo 	= require( '../models/Photo')
 var express 	= require('express')
 var Busboy 		= require('busboy')
-var knox 		= require('knox')
 var url 		= require('url')
 var http 		= require('http')
 var fs			= require('fs')
 var path 		= require('path')
+var Photo 		= require( '../models/Photo')
+var moment 		= require( "moment" )
+var join 		= require( "path" ).join
+var dotenv		= require( "dotenv")
+dotenv.config( { path: join( __dirname, "../../.env" )  } )
+dotenv.load()
+var knox 		= require('knox'),
+	S3Client	= knox.createClient({
+		bucket: "imagxchange",
+		key: process.env.AWS_ACCESS_KEY,
+		secret: process.env.AWS_ACCESS_SECRET 
+	})
+
 
 
 
@@ -18,78 +29,62 @@ function index ( req, res ) {
 }
 
 function create( req, res ) {
-		console.log("Per", req.headers)
 		var busboy = new Busboy( { headers : req.headers } )
-		console.log("BUS", busboy)
 		req.files = {}
 		//A streaming parser for HTML form data
 		
 
     	// Create an Busyboy instance passing the HTTP Request headers.
 	 	busboy.on('file', function( fieldname, file, filename, encoding, mimetype ) {
-	    	if (!filename) {
-	      	// If filename is not truthy it means there's no file
-	      	console.log("no filename")
-	      	return
-	    	}
-	    })
-	    	console.log("file!!!")
-	  //   	console.log('File [' + fieldname + ']: filename: ' + filename + ', encoding: ' + encoding + ', mimetype: ' + mimetype)
+	        // If filename is not truthy it means there's no file
+	        if (!filename) { return }
+			console.log('File [' + fieldname + ']: filename: ' + filename + ', encoding: ' + encoding + ', mimetype: ' + mimetype)
 
+			var extendedName = path.basename( filename ).replace( /\.(?=\w{3,}$)/, moment().format( "[_]YYYY_MM_DD_HH_mm_ss[.]" ) ).replace( /\ /, "")       		
+			var saveLocation = join( "/Users/julieheidt/tmp/", extendedName)
+			var writeStream = fs.createWriteStream( saveLocation )
 
-	  //   	var extendedName = path.basename( filename ).replace( /\.(?=\w{3,}$)/, moment().format( "[_]YYYY_MM_DD_HH_mm_ss[.]" ) ).replace( /\ /, "")
+			//pipe method to pipe to the PUT request
+			file.pipe( writeStream )
+			writeStream.on( "finish", function () {
+				S3Client.putFile( saveLocation, '/images/' + path.basename( saveLocation ), function ( err, response ) {
+					if ( err ) {
+						console.log( "Unable to create file path" + err )
+						return false
+					}
+					// On return of S3, get signed url
+					// This URL will expire in one minute (60 seconds)
+					//console.log( "RESPONSE", response.req.url )
+					//console.log( S3Client, S3Client.signedUrl )
 
-			// // create createWriteStream //load the stream		
-			// var writeStream = fs.createWriteStream( extendedName )
+					var expires = new Date()
+					expires.setMinutes( expires.getMinutes() + (60 * 2) )
 
-			// //pipe method to pipe to the PUT request
-			// file.pipe( writeStream )
+					var url = S3Client.signedUrl( response.req.path, expires )
 
-			// writestream.on( "finish", function () {
-			// // `filePathToBeWrittenTo`
-			// 	console.log( file.path )
-			// 	S3.putFile ( file.path, '/raw/' + path.basename( url ), function ( err, response ) {
-			// 		//
-			// 		if ( err ) {
-			// 			console.log( "Unable to create file path" + err )
-			// 		}
-			// 		// On return of S3, get signed url
-			// 		// This URL will expire in one minute (60 seconds)
-			// 		var url = S3.getSignedUrl( 'getObject', s3params, function ( err, url ) {
-			// 				if ( url ) 
-			// 				console.log( "The URL is ", url )
-			// 				return ( url )
-			// 		})
-			// 		// -> Store SignedURL && S3 Bucket Path in database
+					if ( url ) { 
+						console.log( "The URL is ", url )
+						//return ( url )
+					}
+					// -> Store SignedURL && S3 Bucket Path in database
+					// Set Time To Live (TTL) IN database with date-time stamp
+					//   so you know when the SignedURL needs to be grabbed again
+					//   on request and replacesd in the database
+				})
+			})
 
+    	})
 
-			// 		// Set Time To Live (TTL) IN database with date-time stamp
-			// 		//   so you know when the SignedURL needs to be grabbed again
+		busboy.on('finish', function() {
+		    console.log('finish');
+		})
 
-			// 		//   on request and replacesd in the database
-				// })
-			// })
+		return req.pipe(busboy)
+		
 	}
 		
 		// console.log( data )
 
-
-// 	//makes a photo 
-// 	var photo = new Photo()
-
-// 	photo.title			= req.body.title
-// 	photo.caption		= req.body.caption
-// 	photo.subject		= req.body.subject
-// 	//photo.user			= req.body.global.username
-// 	photo.location		= req.body.location
-// 	photo.datetaken		= req.body.datetaken
-
-// 	photo.save( function( err ) {
-// 		if( err ) res.send 
-// 			res.json({success: true, message: "photo created"})
-// 	})
-
-// }
 	//makes a photo 
 	// var photo = new Photo()
 
