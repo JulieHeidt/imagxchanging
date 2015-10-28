@@ -144,6 +144,17 @@ a:hover, a:focus {
 }
 
 /*Profile Upload Photo*/
+#newPhoto {
+	font-size: .55em;
+
+}
+#profile{
+	font-size: .55em;
+}
+#profileForm{
+	font-size: .55em;
+}
+
 .thumb {
 	width: 24px;
 	height: 24px;

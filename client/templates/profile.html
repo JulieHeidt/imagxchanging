@@ -3,39 +3,29 @@
 		<h1>imagXchange Profile</h1>
 		<div><a>Hi {{mainCtrl.user.username}}</a></div>
 
-<<<<<<< HEAD
 		<h2>Upload Your Photo<h2>
-			<form id="profileForm" ng-submit="photos.addPhoto()" id="newPhoto">
-=======
-	<h2>Upload Your Photo<h2>
-		<!-- Upload form on submit button click -->
-	<body ng-app="imagXchange" ng-controller="UserPhotosController as photoCtrl">
-		<form name="uploadForm">
-			<fieldset>
-				<legend>Upload Photo On Form Submit</legend>
->>>>>>> upstream/master
+			<form id="profileForm" ng-submit="photoCtrl.uploadPic()" id="newPhoto">
 				  <div>
 				    <label for="newPhoto-Title">Title:</label>
-				    <input type="text" id="newPhoto-name" ng-model="photos.newPhoto.name" placeholder="Title">
+				    <input type="text" name="newPhoto-name" ng-model="photoCtrl.newPhoto.title" placeholder="Title">
 				  </div>
 				  <div>
 				    <label for="newPhoto-Caption">Caption:</label>
-				    <input type="text" id="newPhoto-caption" ng-model="photos.newPhoto.caption" placeholder="Caption">
+				    <input type="text" name="newPhoto-caption" ng-model="photoCtrl.newPhoto.caption" placeholder="Caption">
 				  </div>
 				  <div>
 				  	<label for="newPhoto-Subject">Subject:</label>
-				    <input type="text" id="newPhoto-subject" ng-model="photos.newPhoto.subject" placeholder="Subject">
+				    <input type="text" name="newPhoto-subject" ng-model="photoCtrl.newPhoto.subject" placeholder="Subject">
 				  </div>
 				  <div>
 				  	<label for="newPhoto-Location">Location:</label>
-				    <input type="text" id="newPhoto-location" ng-model="photos.newPhoto.location" placeholder="Location">
+				    <input type="text" name="newPhoto-location" ng-model="photoCtrl.newPhoto.location" placeholder="Location">
 				  </div>
 				  <div>
 				  	<label for="newPhoto-DateTaken">DateTaken:</label>
-				    <input type="text" id="newPhoto-datetaken" ng-model="photos.newPhoto.datetaken" placeholder="DateTaken">
+				    <input type="text" name="newPhoto-datetaken" ng-model="photoCtrl.newPhoto.datetaken" placeholder="DateTaken">
 				  </div>
 				  <br>Photo:
-<<<<<<< HEAD
 				  	<input type="file" ngf-select ng-model="picfile" name="file" accept="image/*" ngf-max-size="20MB" required>
 				  	<i ng-show="uploadForm.file.$error.required">*required</i><br>
 				  	<i ng-show="uploadForm.file.$error.maxSize"></i>
@@ -46,25 +36,5 @@
 
 				  </div>
 			</form>
-=======
-				  <input type="file" ngf-select ng-model="picfile" name="file" accept="image/*" ngf-max-size="2MB" required>
-				  <i ng-show="uploadForm.file.$error.required">*required</i><br>
-				  <i ng-show="uploadForm.file.$error.maxSize">File too large {{picFile.size / 1000000|number:1}}MB: max 2M</i>
-				  <img ng-show="uploadForm.file.$valid" ngf-thumbnail="picFile" class="thumb"> <button ng-click="picFile = null" ng-show="picFile">Remove</button>
-				  <br>
-				  <button ng-disabled="!uploadForm.$valid"
-				  		  ng-click="uploadPic(picFile)">Submit</button>
-				  <span class="progress" ng-show="picFile.progress >= 0">
-				  	<div style="width:{{picFile.progress}}%"
-				  		ng-blind="picFile.progress + '%'"></div>
-				  </span>
-				  <span ng-show="picFile.result">Upload Successful</span>
-				  <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
-
-			</fieldset>
-			<br>
-		</form>
-	</body>
->>>>>>> upstream/master
 
 </section>

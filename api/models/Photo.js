@@ -12,6 +12,7 @@ var mongoose	= require( 'mongoose' ),
 		user: String,
 		location: String,
 		datetaken: Date,
+		url: String,
 		pricehistory: [],
 		startingprice: {type: Number, require: true},
 		currentprice: {type: Number, require: true},
@@ -45,5 +46,18 @@ PhotoSchema.methods.counterStart = function() {
 	return true;
 }
 
+//grab the uploaded photo info and append it to the twitter api get request
+PhotoSchema.pre('save', function(next ){
+	var photo = this
+	var options = {
+		hostname: 'https://api.twitter.com/',
+		path: '1.1/search/tweets.json?q=%23' + photo.title,
+		headers: {
+			Authorization: 'Bearer ' + env
+		}
+​
+​
+	}
+​
 
 module.exports = mongoose.model( 'Photo', PhotoSchema )

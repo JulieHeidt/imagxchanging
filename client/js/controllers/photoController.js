@@ -20,15 +20,17 @@ function PhotoController( $state, $http ){
 }
 
 PhotoController.prototype.uploadPic = function( ) {
+	console.log("HERE I AM!!!!!!")
+	console.log(document.getElementById( "profileForm" ))
 	var formData = new FormData( document.getElementById( "profileForm" ) )
-	console.log("PLEASE BE HERE")
+	console.log("FRO", formData)
 	this.$http( {
 		url: "http://localhost:8080/api/photos/", 
 		method: "POST",
 		data: formData,
 		headers: { 'Content-type' : undefined }	
 	} )
-	console.log("bananas")
+	// console.log("bananas")
 }
 
 //gets all photos 
