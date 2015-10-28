@@ -21,8 +21,13 @@ function PhotoController( $state, $http ){
 
 PhotoController.prototype.uploadPic = function( ) {
 	var formData = new FormData( document.getElementById( "profileForm" ) )
-	this.$http
-		.post( "http://localhost:8080/api/photos/", { data: formData} )
+	console.log("PLEASE BE HERE")
+	this.$http( {
+		url: "http://localhost:8080/api/photos/", 
+		method: "POST",
+		data: formData,
+		headers: { 'Content-type' : undefined }	
+	} )
 	console.log("bananas")
 }
 

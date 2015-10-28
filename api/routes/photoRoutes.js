@@ -23,6 +23,7 @@ photoapiRouter.route( '/' ) //displays all photos
 	.post( photosController.create )
 
 
+
 photoapiRouter.route( '/:photo_id' )
 	.get( photosController.show ) //gets individual photo
 

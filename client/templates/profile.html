@@ -28,7 +28,7 @@
 				  <br>Photo:
 				  	<input type="file" ngf-select ng-model="picfile" name="file" accept="image/*" ngf-max-size="20MB" required>
 				  	<i ng-show="uploadForm.file.$error.required">*required</i><br>
-				  	<i ng-show="uploadForm.file.$error.maxSize">File too large {{picFile.size / 1000000|number:1}}MB: max 25M</i>
+				  	<i ng-show="uploadForm.file.$error.maxSize"></i>
 
 				  <br>
 				  <div>

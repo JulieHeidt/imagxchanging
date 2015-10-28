@@ -23,15 +23,8 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 app.use(busboy())
 app.use(busboy());
-app.use(function(req, res) {
-  req.busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
-  })
-  req.pipe(req.busboy)
-})
+
  
-// default options, immediately start reading from the request stream and 
-// parsing 
-app.use(busboy({ immediate: true }));
 
 app.use(morgan( 'dev' ))
 

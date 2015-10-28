@@ -1,6 +1,6 @@
 var Photo 	= require( '../models/Photo')
 var express 	= require('express')
-var busboy 		= require('busboy')
+var Busboy 		= require('busboy')
 var knox 		= require('knox')
 var url 		= require('url')
 var http 		= require('http')
@@ -18,20 +18,22 @@ function index ( req, res ) {
 }
 
 function create( req, res ) {
-		console.log(req)
+		console.log("Per", req.headers)
+		var busboy = new Busboy( { headers : req.headers } )
+		console.log("BUS", busboy)
 		req.files = {}
 		//A streaming parser for HTML form data
 		
 
     	// Create an Busyboy instance passing the HTTP Request headers.
-	 	req.busboy.on('field', function( fieldname, val ) {
+	 	busboy.on('file', function( fieldname, file, filename, encoding, mimetype ) {
 	    	if (!filename) {
 	      	// If filename is not truthy it means there's no file
-	      	console.log("fieldname, val")
-	      	// return
+	      	console.log("no filename")
+	      	return
 	    	}
-
-	  //   	console.log("file!!!")
+	    })
+	    	console.log("file!!!")
 	  //   	console.log('File [' + fieldname + ']: filename: ' + filename + ', encoding: ' + encoding + ', mimetype: ' + mimetype)
 
 
@@ -65,11 +67,11 @@ function create( req, res ) {
 			// 		//   so you know when the SignedURL needs to be grabbed again
 
 			// 		//   on request and replacesd in the database
-			// 	})
+				// })
 			// })
-
-		})
-		console.log( data )
+	}
+		
+		// console.log( data )
 
 
 // 	//makes a photo 
@@ -105,7 +107,7 @@ function create( req, res ) {
 	// 	if( err ) res.send 
 	// 		res.json({success: true, message: "photo created"})
 	// })
-}
+
 
 function show( req, res ) {
 	//gets a single image
