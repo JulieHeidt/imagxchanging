@@ -7,6 +7,11 @@
         <h2>Sign up</h2>    
 
       <form ng-submit="mainCtrl.signup()">
+
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" class="form-control" ng-model="mainCtrl.user.username">
+        </div>
         
         <div class="form-group">
           <label>Email</label>

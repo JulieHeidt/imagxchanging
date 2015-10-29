@@ -40,4 +40,17 @@ app.get('/', function(req, res){
 });
 
 
+<<<<<<< HEAD
+=======
+//setting up server side websocket for twitter
+// io.on('connection', function(socket) {
+// 	console.log('logon attempt')
+// 	socket.on('tweet', function(tweet) {
+// 		socket.emit('tweets', tweet);
+
+// 	var stream = twitter.stream('statuses/filter', { track: 'george clooney' });
+	
+
+
+>>>>>>> 009532dc8395b14e44b0ecc0c28433d365b00937
 module.exports = app;

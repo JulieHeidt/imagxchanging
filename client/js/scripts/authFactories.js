@@ -120,7 +120,7 @@ function authFactory($http, $q, authTokenFactory){
 	// gets that user's info
 	authFactory.getUser = function(){
 		if(authTokenFactory.getToken()){
-			return $http.get('http://localhost:8080/api/me')
+			return $http.get('http://localhost:8080/api/users/me')
 		} else {
 			return $q.reject({message: 'User has no token'})
 		}
