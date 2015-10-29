@@ -56,7 +56,7 @@ function create( req, res ) {
 				}
 
 				var expires = new Date()
-				expires.setMinutes( expires.getMinutes() + (60 * 60 * 2) )
+				expires.setMinutes( expires.getMinutes() + (60 * 60 * 24 * 3) )
 
 				req.fields.url = S3Client.signedUrl( response.req.path, expires )
 				console.log("GOT THE URL: ", req.fields.url)
@@ -90,16 +90,16 @@ function addToDataBase( fieldData, req, res ) {
 	photo.location		= fieldData["newPhoto-location"]
 	photo.datetaken		= fieldData["newPhoto-datetaken"]
 	photo.signedUrlDate = new Date()
-	photo.ttl 			= 60*60*2
+	photo.ttl 			= 60*60*24*3
 	photo.url 			= fieldData.url
 	photo.startingprice	= 2
 	photo.currentprice	= 2
 
 	console.log("Photo is: ", photo)
 
-	photo.save( function( err ) {
+	photo.save( function( err, photo ) {
 		if( err ) res.send 
-			res.json( { success: true, message: "photo created" } )
+			res.json( { success: true, message: "photo created", id: photo._id } )
 	})
 
 }
@@ -107,10 +107,10 @@ function addToDataBase( fieldData, req, res ) {
 
 function show( req, res ) {
 	//gets a single image
-	Photo.findById( req.params.photo_id, function( err ) {
+	Photo.findById( req.params.photo_id, function( err, response ) {
 		if( err ) res.send( err )
 			//check signedURL TTL and match to current time, to see if you need to get a new signed URL
-			res.json( photo )
+			res.json( response )
 			// If you get a new signed URL, make sure to add to DB, and update signedUrlDate
 	})
 }
@@ -137,8 +137,8 @@ function update( req, res ) {
 function destroy ( req, res ) {
 	//deletes a deal
 	Photo.remove( {
-		_id: req.params.deal_id
-	}, function( err, deal ) {
+		_id: req.params.photo_id
+	}, function( err, photo ) {
 		if( err ) res.send( err )
 		res.json( {success: true, message: "Your photo has been destroyed!"})
 	})

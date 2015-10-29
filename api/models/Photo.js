@@ -47,17 +47,16 @@ PhotoSchema.methods.counterStart = function() {
 }
 
 //grab the uploaded photo info and append it to the twitter api get request
-PhotoSchema.pre('save', function(next ){
-	var photo = this
-	var options = {
-		hostname: 'https://api.twitter.com/',
-		path: '1.1/search/tweets.json?q=%23' + photo.title,
-		headers: {
-			Authorization: 'Bearer ' + env
-		}
-​
-​
-	}
-​
+// PhotoSchema.pre('save', function(next ){
+// 	var photo = this
+// 	var options = {
+// 		hostname: 'https://api.twitter.com/',
+// 		path: '1.1/search/tweets.json?q=%23' + photo.title,
+// 		headers: {
+// 			Authorization: 'Bearer ' + env
+// 		}
+// ​
+// 	}
+// ​
 
 module.exports = mongoose.model( 'Photo', PhotoSchema )

@@ -1,4 +1,4 @@
-<div ng-controller="PhotosController as photoCtrl">
+<div ng-controller="PhotoController as photoCtrl">
 </div>
 
 <div class="container">
@@ -17,7 +17,7 @@
 		<li>Staring price: {{photoCtrl.photo.startingprice}}</li>
 		<li>Current price: {{photoCtrl.photo.currentprice}}</li>
 		<li>Photo id: {{photoCtrl.photo._id}}</li>
-		<li>Photo: {{photoCtrl.photo.url}}
+		<li>Photo: {{photoCtrl.photo.url}}</li>
 
 		<button id='buy' ng-click="photoCtrl.buyPhoto(photoCtrl.photo._id)">BUY</button>
 		<!-- <button class='delete' ng-click="photos.deletePhoto(photo)">Delete</button> -->

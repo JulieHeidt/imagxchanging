@@ -12,10 +12,10 @@
 		<li>Location: {{photo.location}}</li>
 		<li>Date take: {{photo.datetaken}}</li>
 		<li>Current price: {{photo.price}}</li>
-		<li>Photo id: {{photo._id}}</li>
+		<li>Photo: <img src="{{photo.url}}" /> </li>
 
-		<button class='view' ng-click="photoCtrl.showPhoto(photo._id)">View</button>
-		<!-- <button class='delete' ng-click="photos.deletePhoto(photo)">Delete</button> -->
+		<button class='view' ng-click="photoCtrl.showPhotos(photo._id)">View</button>
+		<button class='delete' ng-click="photoCtrl.destroy(photo._id)">Delete</button>
 
 	</ul>
 	<br>

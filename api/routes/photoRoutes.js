@@ -27,6 +27,6 @@ photoapiRouter.route( '/' ) //displays all photos
 photoapiRouter.route( '/:photo_id' )
 	.get( photosController.show ) //gets individual photo
 	.patch (photosController.update) //updates photo
-
+	.delete(photosController.destroy)
 
 module.exports = photoapiRouter

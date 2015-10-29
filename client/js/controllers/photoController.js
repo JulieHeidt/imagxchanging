@@ -13,7 +13,7 @@ var newpass = false
 
 //refer to the photo module
 
-function PhotosController( $state, $http ){
+function PhotoController( $state, $http ){
 
 
 	var vm = this
@@ -107,8 +107,8 @@ function PhotosController( $state, $http ){
 }
 
 PhotoController.prototype.uploadPic = function( ) {
-	console.log("HERE I AM!!!!!!")
-	console.log(document.getElementById( "profileForm" ))
+	console.log( "HERE I AM!!!!!!" )
+	console.log( document.getElementById( "profileForm" ) )
 	var formData = new FormData( document.getElementById( "profileForm" ) )
 	console.log("FRO", formData)
 	this.$http( {
@@ -116,13 +116,17 @@ PhotoController.prototype.uploadPic = function( ) {
 		method: "POST",
 		data: formData,
 		headers: { 'Content-type' : undefined }	
-	} )
-	// console.log("bananas")
+	}).then( function ( response ) {
+		var id = response.data.id
+		// I have now got confirmation from server that the picture has been uploaded
+		window.location.href = "http://localhost:8080/api/photos/"+id
+	})
+	console.log("bananas")
 }
 
 //gets all photos 
 
-PhotoController.prototype.getPhotos = function() {
+PhotoController.prototype.allPhotos = function() {
 
 
 
@@ -138,7 +142,7 @@ PhotoController.prototype.getPhotos = function() {
 }
 
 
-PhotoController.prototype.viewPhotos = function(id) {
+PhotoController.prototype.showPhotos = function(id) {
 	console.log("Working")
 
 
@@ -178,6 +182,19 @@ PhotoController.prototype.viewPhotos = function(id) {
 
 }
 
+PhotoController.prototype.destroy = function(id) {
+	console.log("delete button is hitting")
+	var vm = this
+	vm.$http.delete("http://localhost:8080/api/photos/" + id)
+		.then( function( response ){
+			//remove the photo with 'id' from the DOM
+			console.log("photo deleted")
+		})
+
+}
+
+
+
 PhotoController.prototype.buyPhoto = function(id) {
 	console.log("buy button is hitting")
 
@@ -196,11 +213,12 @@ PhotoController.prototype.buyPhoto = function(id) {
 	{currentprice: newprice})
 	
 	}
-
 }
 
 
-
+PhotoController.prototype.handler = function () {
+	this.uploadPic()
+}
 
 
 

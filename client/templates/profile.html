@@ -4,7 +4,7 @@
 		<div><a>Hi {{mainCtrl.user.username}}</a></div>
 
 		<h2>Upload Your Photo<h2>
-			<form id="profileForm" ng-submit="photoCtrl.uploadPic()" id="newPhoto">
+			<form id="profileForm" ng-submit="photoCtrl.handler()" id="newPhoto">
 				  <div>
 				    <label for="newPhoto-Title">Title:</label>
 				    <input type="text" name="newPhoto-name" ng-model="photoCtrl.newPhoto.title" placeholder="Title">
@@ -32,7 +32,7 @@
 
 				  <br>
 				  <div>
-				    <button type="submit" value="Add Photo" ng-click="photoCtrl.uploadPic()">Submit</button>
+				    <button type="submit" value="Add Photo">Submit</button>
 
 				  </div>
 			</form>

@@ -11,7 +11,7 @@ angular.module('photoFactory', [])
 			create : function(photoData) {
 				return $http.post(baseUrl, photoData)
 			},
-			delete : function(id) {
+			destroy : function(id) {
 				return $http.delete(baseUrl + id)
 			}
 			
