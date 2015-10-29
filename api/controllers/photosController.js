@@ -67,9 +67,7 @@ function create( req, res ) {
 	})
 
 	busboy.on('finish', function() {
-		// Set Time To Live (TTL) IN database with date-time stamp
-		//   so you know when the SignedURL needs to be grabbed again
-		//   on request and replacesd in the database
+		// Set Time To Live (TTL) IN database with date-time stamp-->SignedURL needs to be grabbed again * on request and replacesd in the database
 	    //addToDataBase( req.fields, req, res )
 	})
 

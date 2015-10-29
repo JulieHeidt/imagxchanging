@@ -106,11 +106,9 @@ function PhotoController( $state, $http ){
 	
 }
 
-PhotoController.prototype.uploadPic = function( ) {
-	console.log( "HERE I AM!!!!!!" )
+PhotoController.prototype.uploadPic = function() {
 	console.log( document.getElementById( "profileForm" ) )
 	var formData = new FormData( document.getElementById( "profileForm" ) )
-	console.log("FRO", formData)
 	this.$http( {
 		url: "http://localhost:8080/api/photos/", 
 		method: "POST",
@@ -119,9 +117,10 @@ PhotoController.prototype.uploadPic = function( ) {
 	}).then( function ( response ) {
 		var id = response.data.id
 		// I have now got confirmation from server that the picture has been uploaded
-		window.location.href = "http://localhost:8080/api/photos/"+id
+		window.location.href = ("#/gallery/" + response.data._id)
 	})
 	console.log("bananas")
+
 }
 
 //gets all photos 
@@ -215,10 +214,6 @@ PhotoController.prototype.buyPhoto = function(id) {
 	}
 }
 
-
-PhotoController.prototype.handler = function () {
-	this.uploadPic()
-}
 
 
 

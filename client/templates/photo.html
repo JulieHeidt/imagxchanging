@@ -9,7 +9,7 @@
 <div class="container">
 	<ul ng-model="photoCtrl.photo">
 
-		<li>Title: {{photoCtrl.photo.title}}</li>
+		<li>Title: {{photo.title}}</li>
 		<li>Caption: {{photoCtrl.photo.caption}}</li>
 		<li>Subject: {{photoCtrl.photo.subject}}</li>
 		<li>Location: {{photoCtrl.photo.location}}</li>
@@ -17,7 +17,7 @@
 		<li>Staring price: {{photoCtrl.photo.startingprice}}</li>
 		<li>Current price: {{photoCtrl.photo.currentprice}}</li>
 		<li>Photo id: {{photoCtrl.photo._id}}</li>
-		<li>Photo: {{photoCtrl.photo.url}}</li>
+		<li>Photo: <img src="{{photo.url}}" /> </li>
 
 		<button id='buy' ng-click="photoCtrl.buyPhoto(photoCtrl.photo._id)">BUY</button>
 		<!-- <button class='delete' ng-click="photos.deletePhoto(photo)">Delete</button> -->
