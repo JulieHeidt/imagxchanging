@@ -14,8 +14,10 @@
 		<li>Current price: {{photo.price}}</li>
 		<li>Photo: <img src="{{photo.url}}" /> </li>
 
-		<button class='view' ng-click="photoCtrl.showPhotos(photo._id)">View</button>
+		<button class='view' ui-sref="photos" ng-click="photoCtrl.showPhotos(photo._id)">View</button>
 		<button class='delete' ng-click="photoCtrl.destroy(photo._id)">Delete</button>
+		<!-- <button class='delete' ng-click="photos.deletePhoto(photo)">Delete</button> -->
+
 
 	</ul>
 	<br>
